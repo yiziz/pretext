@@ -342,6 +342,10 @@ const arabicNoSpaceTrailingPunctuation = new Set([
   '\u061B', // ؛
 ])
 
+const myanmarMedialGlue = new Set([
+  '\u104F', // ၏
+])
+
 const combiningMarkRe = /\p{M}/u
 
 const closingQuoteChars = new Set([
@@ -408,6 +412,11 @@ function isRepeatedSingleCharRun(segment: string, ch: string): boolean {
 function endsWithArabicNoSpacePunctuation(segment: string): boolean {
   if (!containsArabicScript(segment) || segment.length === 0) return false
   return arabicNoSpaceTrailingPunctuation.has(segment[segment.length - 1]!)
+}
+
+function endsWithMyanmarMedialGlue(segment: string): boolean {
+  if (segment.length === 0) return false
+  return myanmarMedialGlue.has(segment[segment.length - 1]!)
 }
 
 function splitLeadingSpaceAndMarks(segment: string): { space: string, marks: string } | null {
@@ -952,6 +961,14 @@ function buildMergedSegmentation(normalized: string): MergedSegmentation {
         isCJK(piece.text) &&
         isCJK(mergedTexts[mergedLen - 1]!) &&
         endsWithClosingQuote(mergedTexts[mergedLen - 1]!)
+      ) {
+        mergedTexts[mergedLen - 1] += piece.text
+        mergedWordLike[mergedLen - 1] = mergedWordLike[mergedLen - 1]! || piece.isWordLike
+      } else if (
+        isText &&
+        mergedLen > 0 &&
+        mergedKinds[mergedLen - 1] === 'text' &&
+        endsWithMyanmarMedialGlue(mergedTexts[mergedLen - 1]!)
       ) {
         mergedTexts[mergedLen - 1] += piece.text
         mergedWordLike[mergedLen - 1] = mergedWordLike[mergedLen - 1]! || piece.isWordLike

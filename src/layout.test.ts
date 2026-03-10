@@ -200,6 +200,11 @@ describe('prepare invariants', () => {
     expect(prepared.segments.at(-1)).toBe('ကြ၏။')
   })
 
+  test('keeps myanmar possessive marker attached to the following word', () => {
+    const prepared = prepareWithSegments('ကျွန်ုပ်၏လက်မဖြင့်', FONT)
+    expect(prepared.segments).toEqual(['ကျွန်ုပ်၏လက်မ', 'ဖြင့်'])
+  })
+
   test('keeps opening quotes attached to the following word', () => {
     const prepared = prepareWithSegments('“Whenever', FONT)
     expect(prepared.segments).toEqual(['“Whenever'])

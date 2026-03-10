@@ -801,24 +801,24 @@ Why this source is better:
 
 Current first-pass results:
 - Chrome anchor widths:
-  - `300`: `-96px`
-  - `600`: `-32px`
+  - `300`: exact
+  - `600`: exact
   - `800`: exact
-- Chrome sampled sweep (`--samples=9`): `4/9 exact`, remaining widths all negative
+- Chrome sampled sweep (`--samples=9`): `9/9 exact`
 - Safari anchor widths:
-  - `300`: `-96px`
+  - `300`: exact
+  - `525`: exact
   - `600`: exact
   - `800`: exact
 - Sampled font matrix:
-  - `Myanmar MN`: `1/3 exact`
-  - `Myanmar Sangam MN`: `2/3 exact`
-  - `Noto Sans Myanmar`: `1/3 exact`
+  - `Myanmar MN`: exact
+  - `Myanmar Sangam MN`: exact
+  - `Noto Sans Myanmar`: exact
 
 Interpretation:
-- unlike the rejected Lao law corpus, this is a clean and credible new canary
-- the remaining field is modest and consistent, not a total collapse
-- the first mismatch at `300px` is the same broad shape we saw in Lao: the browser breaks earlier than our model at an ordinary Southeast Asian break opportunity, even though the measured candidate line still fits numerically
-- that keeps the pressure on the same abstraction boundary: `Intl.Segmenter('word')` is a useful candidate-boundary source, but it is not the browser's full line-break model for these scripts
+- unlike the rejected Lao law corpus, this is a clean and credible Southeast Asian canary
+- the initial negative field was not a total line-break-model failure; it collapsed under a small set of semantic glue fixes
+- that still keeps pressure on the same abstraction boundary: `Intl.Segmenter('word')` is a useful candidate-boundary source, but it is not the browser's full line-break model for these scripts
 
 Further work on the Myanmar canary turned up two concrete keepers:
 - Myanmar punctuation/signs that should not start a new line need to stay attached during preprocessing, just like Arabic comma/semicolon and Devanagari danda
@@ -826,12 +826,10 @@ Further work on the Myanmar canary turned up two concrete keepers:
   - `300`: `-96px` -> `0px`
   - `600`: `-32px` -> `0px`
   - `800`: exact throughout
-- the sampled sweep improved to `8/9 exact`, with only one remaining one-line miss at `525px`
-
-The remaining Myanmar miss does **not** look like another punctuation omission. The current sampled holdout is a phrase-level case around:
-- `ထို့ကြောင့် ကျွန်ုပ်၏|လက်မဖြင့်`
-
-That looks more like a richer phrase-sticking class than punctuation-at-line-start, so it should be treated cautiously rather than folded into the punctuation heuristics immediately.
+- the last sampled miss at `525px` turned out to be a real phrase-level break around:
+  - `ထို့ကြောင့် ကျွန်ုပ်၏|လက်မဖြင့်`
+- the keepable fix there was not a broad phrase heuristic; it was treating `၏` as Myanmar medial glue, so `ကျွန်ုပ်၏လက်မ` stays together during preprocessing
+- with that narrower keep, the sampled sweep went to `9/9 exact` and Safari matched the same anchor widths exactly
 
 We also hardened the single-snippet probe tooling:
 - `/probe` and `bun run probe-check` now accept `method=range|span`
