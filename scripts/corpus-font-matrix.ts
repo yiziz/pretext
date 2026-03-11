@@ -73,6 +73,20 @@ type MatrixOptions = {
 }
 
 const FONT_MATRIX: Record<string, FontVariant[]> = {
+  'ja-rashomon': [
+    {
+      id: 'default',
+      label: 'Hiragino Mincho ProN',
+      font: '20px "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP", serif',
+      lineHeight: 32,
+    },
+    {
+      id: 'hiragino-sans',
+      label: 'Hiragino Sans',
+      font: '20px "Hiragino Sans", "Hiragino Mincho ProN", sans-serif',
+      lineHeight: 32,
+    },
+  ],
   'ko-unsu-joh-eun-nal': [
     {
       id: 'default',

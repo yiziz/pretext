@@ -3,6 +3,7 @@ import type { PreparedText } from '../src/layout.ts'
 import { TEXTS } from '../src/test-data.ts'
 import arRisalatAlGhufranPart1 from '../corpora/ar-risalat-al-ghufran-part-1.txt' with { type: 'text' }
 import hiEidgah from '../corpora/hi-eidgah.txt' with { type: 'text' }
+import jaRashomon from '../corpora/ja-rashomon.txt' with { type: 'text' }
 import kmPrachumReuangPrengKhmerVolume7Stories1To10 from '../corpora/km-prachum-reuang-preng-khmer-volume-7-stories-1-10.txt' with { type: 'text' }
 import myBadDeedsReturnToYouTeacher from '../corpora/my-bad-deeds-return-to-you-teacher.txt' with { type: 'text' }
 import myCunningHeronTeacher from '../corpora/my-cunning-heron-teacher.txt' with { type: 'text' }
@@ -53,6 +54,15 @@ const reportMode = params.get('report') === '1'
 const requestId = params.get('requestId') ?? undefined
 
 const CORPORA = [
+  {
+    id: 'ja-rashomon',
+    label: 'Japanese prose',
+    text: jaRashomon,
+    font: '20px "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP", serif',
+    lineHeight: 32,
+    width: 300,
+    sampleWidths: [240, 300, 360] as const,
+  },
   {
     id: 'ko-unsu-joh-eun-nal',
     label: 'Korean prose',

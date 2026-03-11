@@ -18,6 +18,24 @@
     "notes": "Synthetic mixed-script app-text stress corpus covering URLs, quotes, RTL runs, emoji ZWJ, hard spaces, word joiners, zero-width breaks, and soft hyphens."
   },
   {
+    "id": "ja-rashomon",
+    "language": "ja",
+    "direction": "ltr",
+    "title": "羅生門",
+    "source_url": "https://ja.wikisource.org/wiki/%E7%BE%85%E7%94%9F%E9%96%80",
+    "output": "corpora/ja-rashomon.txt",
+    "font_family": "\"Hiragino Mincho ProN\", \"Yu Mincho\", \"Noto Serif CJK JP\", serif",
+    "font_size_px": 20,
+    "line_height_px": 32,
+    "default_width": 600,
+    "min_width": 300,
+    "max_width": 900,
+    "characters": 5701,
+    "lines": 69,
+    "acquired_via": "parse",
+    "notes": "Japanese prose stress corpus from Wikisource, trimmed to the story body with ruby readings and page/license scaffolding removed."
+  },
+  {
     "id": "ko-unsu-joh-eun-nal",
     "language": "ko",
     "direction": "ltr",

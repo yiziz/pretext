@@ -13,6 +13,12 @@ Current bundle:
   - Source: synthetic corpus kept in-repo
   - Acquisition: hand-curated stress text covering URLs, quote clusters, mixed RTL/LTR runs, emoji ZWJ, hard spaces, word joiners, zero-width breaks, and soft hyphens
 
+- `ja-rashomon.txt`
+  - Language: Japanese
+  - Source: 芥川龍之介, `羅生門`
+  - URL: <https://ja.wikisource.org/wiki/%E7%BE%85%E7%94%9F%E9%96%80>
+  - Acquisition: Wikisource `parse` API, trimmed to the story body with ruby readings and page/license scaffolding removed
+
 - `ko-unsu-joh-eun-nal.txt`
   - Language: Korean
   - Source: Hyun Jin-geon, `운수 좋은 날`

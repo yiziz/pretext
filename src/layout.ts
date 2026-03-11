@@ -316,6 +316,10 @@ const kinsokuStart = new Set([
   '\u30FC', // ー
   '\u3005', // 々
   '\u303B', // 〻
+  '\u309D', // ゝ
+  '\u309E', // ゞ
+  '\u30FD', // ヽ
+  '\u30FE', // ヾ
 ])
 
 // Line-end prohibition: these characters should stay with the following text.
@@ -1005,6 +1009,15 @@ function buildMergedSegmentation(normalized: string): MergedSegmentation {
         isText &&
         mergedLen > 0 &&
         mergedKinds[mergedLen - 1] === 'text' &&
+        isCJKLineStartProhibitedSegment(piece.text) &&
+        isCJK(mergedTexts[mergedLen - 1]!)
+      ) {
+        mergedTexts[mergedLen - 1] += piece.text
+        mergedWordLike[mergedLen - 1] = mergedWordLike[mergedLen - 1]! || piece.isWordLike
+      } else if (
+        isText &&
+        mergedLen > 0 &&
+        mergedKinds[mergedLen - 1] === 'text' &&
         endsWithMyanmarMedialGlue(mergedTexts[mergedLen - 1]!)
       ) {
         mergedTexts[mergedLen - 1] += piece.text
@@ -1037,7 +1050,6 @@ function buildMergedSegmentation(normalized: string): MergedSegmentation {
         mergedKinds[mergedLen - 1] === 'text' &&
         (
           isLeftStickyPunctuationSegment(piece.text) ||
-          (isCJKLineStartProhibitedSegment(piece.text) && isCJK(mergedTexts[mergedLen - 1]!)) ||
           (piece.text === '-' && mergedWordLike[mergedLen - 1]!)
         )
       ) {

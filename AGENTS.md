@@ -76,6 +76,7 @@ Internal notes for contributors and agents. Use `README.md` as the public source
 - That rule now has one explicit caveat: the remaining mixed-app `710px` soft-hyphen miss is extractor-sensitive. Compare `--method=span` and `--method=range` before changing the engine, and do not assume either extractor is the whole truth by itself.
 - A second Thai prose corpus (`นิทานเวตาล เรื่องที่ ๗`) is now checked in and exact at Chrome/Safari anchor widths plus a 9-sample Chrome sweep. Treat current Thai support as broader than one lucky story, but still verify new Thai text before declaring the whole script “done.”
 - Khmer anchor widths were exact in both Chrome and Safari, and a 9-sample Chrome sweep was exact. The full `step=10` sweep was slow enough to be annoying, so use `--samples=<n>` first unless you specifically need every width.
+- Japanese `羅生門` is now a checked-in canary. The first keep-worthy Japanese rule was semantic, not font-specific: kana iteration marks like `ゝ` / `ゞ` / `ヽ` / `ヾ` should be treated as CJK line-start-prohibited, even when `Intl.Segmenter` emits them as standalone word-like pieces.
 - The corpus diagnostics should derive our candidate lines from `layoutWithLines()`, not from a second local line-walker. That avoids SHY and future custom-break drift between the hot path and the diagnostic path.
 - Current line-fit tolerance is `0.005` for Chromium/Gecko and `1/64` for Safari/WebKit. That bump was justified by the remaining Arabic fine-width field and did not move the solved browser corpus or Gatsby coarse canary.
 

@@ -260,6 +260,11 @@ describe('prepare invariants', () => {
     expect(prepared.segments).toEqual(['“', ' ', 'hello'])
   })
 
+  test('keeps japanese iteration marks attached to the preceding kana', () => {
+    const prepared = prepareWithSegments('棄てゝ行く', FONT)
+    expect(prepared.segments).toEqual(['棄', 'てゝ', '行', 'く'])
+  })
+
   test('keeps em dashes breakable', () => {
     const prepared = prepareWithSegments('universe—so', FONT)
     expect(prepared.segments).toEqual(['universe', '—', 'so'])

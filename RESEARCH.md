@@ -901,6 +901,18 @@ Interpretation:
 - the second Myanmar corpus confirms that closing-quote + follower behavior is a real recurring class in Myanmar prose
 - but it also reinforces that the class is not stable enough across engines to justify another direct glue heuristic right now
 
+We also added a Japanese prose canary from `羅生門`.
+
+What it taught us first:
+- the initial clean semantic miss was kana iteration marks like `捨てゝ` / `棄てゝ`
+- `Intl.Segmenter` can emit those marks as standalone word-like pieces, so relying only on the later CJK grapheme splitter was not enough
+- treating `ゝ` / `ゞ` / `ヽ` / `ヾ` as CJK line-start-prohibited during preprocessing was a real keep
+
+Current shape:
+- Chrome and Safari are exact at the anchor widths (`300`, `600`, `800`)
+- Chrome `step=10` is still only `54/61 exact`
+- the remaining field is mostly opening-quote / punctuation compression plus one-line edge-fit cases, so Japanese is a real canary rather than a free win
+
 ## Sampled cross-font corpus matrix
 
 The first font-axis pass was lighter-weight on purpose: keep the same corpora and widths, but swap only
