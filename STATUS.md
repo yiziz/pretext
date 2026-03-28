@@ -38,25 +38,25 @@ These snapshot files were captured on `2026-03-28`.
 
 | Browser | `prepare()` | `layout()` | DOM batch | DOM interleaved |
 |---|---:|---:|---:|---:|
-| Chrome | `20.75ms` | `0.20ms` | `3.90ms` | `41.95ms` |
-| Safari | `18.50ms` | `0.21ms` | `88.00ms` | `152.00ms` |
+| Chrome | `21.70ms` | `0.09ms` | `4.25ms` | `42.20ms` |
+| Safari | `18.00ms` | `0.12ms` | `87.00ms` | `151.00ms` |
 
 ### Long-form corpus stress (Chrome baseline)
 
 | Corpus | analyze() | measure() | prepare() | layout() | segs (analyze→prepared) | lines @ 300px |
 |---|---:|---:|---:|---:|---:|---:|
-| Japanese prose (story 2) | `2.00ms` | `4.20ms` | `6.10ms` | `0.03ms` | `1,773→2,667` | `193` |
-| Japanese prose | `4.10ms` | `7.90ms` | `11.90ms` | `0.05ms` | `3,606→5,044` | `380` |
-| Korean prose | `2.20ms` | `7.90ms` | `10.20ms` | `0.10ms` | `5,282→9,679` | `428` |
-| Chinese prose | `6.30ms` | `13.20ms` | `19.50ms` | `0.08ms` | `5,433→7,949` | `626` |
-| Chinese prose (story 2) | `3.70ms` | `8.40ms` | `12.10ms` | `0.05ms` | `3,271→4,745` | `375` |
-| Thai prose | `8.00ms` | `9.60ms` | `18.40ms` | `0.12ms` | `10,281→10,281` | `1,024` |
+| Japanese prose (story 2) | `2.00ms` | `4.20ms` | `6.20ms` | `0.02ms` | `1,773→2,667` | `193` |
+| Japanese prose | `3.90ms` | `8.30ms` | `12.70ms` | `0.03ms` | `3,606→5,044` | `380` |
+| Korean prose | `2.30ms` | `8.30ms` | `11.00ms` | `0.05ms` | `5,282→9,679` | `428` |
+| Chinese prose | `6.40ms` | `13.20ms` | `19.70ms` | `0.05ms` | `5,433→7,949` | `626` |
+| Chinese prose (story 2) | `3.60ms` | `8.00ms` | `11.50ms` | `0.03ms` | `3,271→4,745` | `375` |
+| Thai prose | `8.60ms` | `10.70ms` | `20.40ms` | `0.05ms` | `10,281→10,281` | `1,024` |
 | Myanmar prose | `0.70ms` | `1.30ms` | `2.00ms` | `<0.01ms` | `797→797` | `81` |
-| Myanmar prose (story 2) | `0.40ms` | `1.00ms` | `1.30ms` | `<0.01ms` | `498→498` | `54` |
-| Urdu prose | `2.40ms` | `6.70ms` | `9.20ms` | `0.06ms` | `6,051→6,051` | `351` |
-| Khmer prose | `5.40ms` | `6.80ms` | `12.70ms` | `0.12ms` | `11,109→11,109` | `591` |
-| Hindi prose | `4.00ms` | `10.80ms` | `14.80ms` | `0.10ms` | `9,958→9,958` | `653` |
-| Arabic prose | `36.80ms` | `86.10ms` | `112.00ms` | `0.38ms` | `37,603→37,603` | `2,643` |
+| Myanmar prose (story 2) | `0.40ms` | `1.00ms` | `1.40ms` | `<0.01ms` | `498→498` | `54` |
+| Urdu prose | `2.50ms` | `7.00ms` | `9.60ms` | `0.03ms` | `6,051→6,051` | `351` |
+| Khmer prose | `5.60ms` | `6.90ms` | `12.50ms` | `0.05ms` | `11,109→11,109` | `591` |
+| Hindi prose | `3.90ms` | `11.80ms` | `15.90ms` | `0.05ms` | `9,958→9,958` | `653` |
+| Arabic prose | `28.40ms` | `90.80ms` | `111.00ms` | `0.17ms` | `37,603→37,603` | `2,643` |
 
 Notes:
 - Chrome remains the main maintained performance baseline. Safari snapshots are still useful, but they are noisier and warm up less predictably.

@@ -85,6 +85,7 @@ type PreparedCore = {
   lineEndFitAdvances: number[] // Width contribution when a line ends after this segment
   lineEndPaintAdvances: number[] // Painted width contribution when a line ends after this segment
   kinds: SegmentBreakKind[] // Break behavior per segment, e.g. ['text', 'space', 'text']
+  simpleLineCountFastPath: boolean // `layout()` can use the old simple counter instead of the full rich walker
   segLevels: Int8Array | null // Rich-path bidi metadata for custom rendering; layout() never reads it
   breakableWidths: (number[] | null)[] // Grapheme widths for overflow-wrap segments, else null
   breakablePrefixWidths: (number[] | null)[] // Cumulative grapheme prefix widths for narrow browser-policy shims
@@ -162,6 +163,7 @@ function createEmptyPrepared(includeSegments: boolean): InternalPreparedText | P
       lineEndFitAdvances: [],
       lineEndPaintAdvances: [],
       kinds: [],
+      simpleLineCountFastPath: true,
       segLevels: null,
       breakableWidths: [],
       breakablePrefixWidths: [],
@@ -176,6 +178,7 @@ function createEmptyPrepared(includeSegments: boolean): InternalPreparedText | P
     lineEndFitAdvances: [],
     lineEndPaintAdvances: [],
     kinds: [],
+    simpleLineCountFastPath: true,
     segLevels: null,
     breakableWidths: [],
     breakablePrefixWidths: [],
@@ -206,6 +209,7 @@ function measureAnalysis(
   const lineEndFitAdvances: number[] = []
   const lineEndPaintAdvances: number[] = []
   const kinds: SegmentBreakKind[] = []
+  let simpleLineCountFastPath = analysis.chunks.length <= 1
   const segStarts = includeSegments ? [] as number[] : null
   const breakableWidths: (number[] | null)[] = []
   const breakablePrefixWidths: (number[] | null)[] = []
@@ -223,6 +227,9 @@ function measureAnalysis(
     breakable: number[] | null,
     breakablePrefix: number[] | null,
   ): void {
+    if (kind !== 'text' && kind !== 'space' && kind !== 'zero-width-break') {
+      simpleLineCountFastPath = false
+    }
     widths.push(width)
     lineEndFitAdvances.push(lineEndFitAdvance)
     lineEndPaintAdvances.push(lineEndPaintAdvance)
@@ -357,6 +364,7 @@ function measureAnalysis(
       lineEndFitAdvances,
       lineEndPaintAdvances,
       kinds,
+      simpleLineCountFastPath,
       segLevels,
       breakableWidths,
       breakablePrefixWidths,
@@ -371,6 +379,7 @@ function measureAnalysis(
     lineEndFitAdvances,
     lineEndPaintAdvances,
     kinds,
+    simpleLineCountFastPath,
     segLevels,
     breakableWidths,
     breakablePrefixWidths,
